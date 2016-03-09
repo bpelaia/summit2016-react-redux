@@ -1,0 +1,21 @@
+// This webpack config can load css files, embed small png images as Data Urls
+// and jpg images as files.
+module.exports = {
+  module: {
+    loaders: [
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.scss$/, loader: "style"
+        + "!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]"
+        + "!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap" },
+      { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.jpg$/, loader: "file-loader" }
+    ]
+  }
+};
+
+//And now you can require your assets in JavaScript files
+require('./bootstrap.css');
+require('./myapp.sass');
+
+var img = document.createElement('img');
+img.src = require('./glyph.png');
